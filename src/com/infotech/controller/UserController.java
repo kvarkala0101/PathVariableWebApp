@@ -1,5 +1,7 @@
 package com.infotech.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +27,17 @@ public class UserController {
 	public ModelAndView greet(@PathVariable("domainName")String domainName){
 		return new ModelAndView("welcomePage","welcomeMessage", "Hello "+domainName);
 	} 
+	
+	/*
+	 * using map collecting path variables
+	 */
+	
+	@RequestMapping(value="/user/{userName}/{age}/{userId}", method=RequestMethod.GET)
+	public ModelAndView greet(@PathVariable Map<String, String> pathsMap){
+		String userName = pathsMap.get("userName");
+		int age = Integer.parseInt(pathsMap.get("age"));
+		String userId = pathsMap.get("userId");
+		return new ModelAndView("welcomePage","welcomeMessage", "Hello "+userName+" you are "+age+" years old, your id is "+userId);
+	}
 }
+
